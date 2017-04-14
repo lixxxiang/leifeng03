@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">LEIFENG</string>
+
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <string name="tab_menu_home">首页</string>
+    <string name="tab_menu_detect">侦探</string>
+    <string name="tab_menu_record">录制</string>
+    <string name="tab_menu_private">私信</string>
+    <string name="tab_menu_more">更多</string>
+</resources>
