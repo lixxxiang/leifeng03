@@ -29,16 +29,16 @@ import com.cgwx.yyfwptz.lixiang.leifeng0_2.entities.Icon;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.models.modelImpl.DetectFragmentWithMapModelImpl;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.models.modelInterface.OnSendArrayListener;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.presenters.BasePresenter;
-import com.cgwx.yyfwptz.lixiang.leifeng0_2.utils.Constants;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.activity.MainActivity;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.DetectFragmentNormal;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.DetectFragmentWithMap;
 import static com.cgwx.yyfwptz.lixiang.leifeng0_2.presenters.mainActivitypresenter.MainActivityPresenter.detectFragmentNormal;
 import static com.cgwx.yyfwptz.lixiang.leifeng0_2.presenters.mainActivitypresenter.MainActivityPresenter.detectFragmentWithMap;
-import static com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.HomeFragmentWithMap.baiduMap;
-import static com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.HomeFragmentWithMap.bitmapDescriptor;
-import static com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.HomeFragmentWithMap.mapView;
-import static com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.HomeFragmentWithMap.requestLocButton;
+import static com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.DetectFragmentWithMap.baiduMap;
+import static com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.DetectFragmentWithMap.bitmapDescriptor;
+import static com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.DetectFragmentWithMap.mapView2;
+import static com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.DetectFragmentWithMap.requestLocButton;
+
 
 /**
  * Created by yyfwptz on 2017/3/27.
@@ -80,7 +80,7 @@ public class DetectFragmentWithMapPresenter extends BasePresenter<DetectFragment
             Log.e("---", String.valueOf(i.getLatitude()));
 
             bitmapDescriptor = BitmapDescriptorFactory.fromResource(R.drawable.icon_gcoding);
-            baiduMap = mapView.getMap();
+            baiduMap = mapView2.getMap();
             baiduMap.setMyLocationEnabled(true);
             /**
              * 缩放等级
@@ -207,7 +207,7 @@ public class DetectFragmentWithMapPresenter extends BasePresenter<DetectFragment
 
         @Override
         public void onReceiveLocation(BDLocation location) {
-            if (location == null || mapView == null)
+            if (location == null || mapView2 == null)
                 return;
 
             MyLocationData locData = new MyLocationData.Builder()

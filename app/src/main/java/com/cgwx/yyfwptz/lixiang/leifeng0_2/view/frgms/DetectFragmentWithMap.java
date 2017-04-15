@@ -34,7 +34,7 @@ public class DetectFragmentWithMap extends BaseFragment<DetectFragmentWithMapPre
     Button changeView;
 
     private View view;
-    public static MapView mapView;
+    public static MapView mapView2;
     public static BaiduMap baiduMap;
     private FragmentManager fragmentManager;
     private LocationClient mLocClient;
@@ -51,9 +51,9 @@ public class DetectFragmentWithMap extends BaseFragment<DetectFragmentWithMapPre
 
 
         SDKInitializer.initialize(getActivity().getApplication());
-        view = inflater.inflate(R.layout.home_fragment_with_map, container, false);
+        view = inflater.inflate(R.layout.detect_fragment_with_map, container, false);
         ButterKnife.bind(this, view);
-        mapView = (MapView) view.findViewById(R.id.bmapView);
+        mapView2 = (MapView) view.findViewById(R.id.bmapView);
         requestLocButton = (Button) view.findViewById(R.id.button1);
 
         /**
@@ -95,23 +95,23 @@ public class DetectFragmentWithMap extends BaseFragment<DetectFragmentWithMapPre
     @Override
     public void onDestroy() {
         super.onDestroy();
-        //mLocClient.stop();
+        mLocClient.stop();
         baiduMap.setMyLocationEnabled(false);
-        mapView.onDestroy();
-        mapView = null;
+        mapView2.onDestroy();
+        mapView2 = null;
         bitmapDescriptor.recycle();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        mapView.onResume();
+        mapView2.onResume();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        mapView.onPause();
+        mapView2.onPause();
     }
 
 

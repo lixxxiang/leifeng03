@@ -1,33 +1,21 @@
 package com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms;
 
 import android.app.FragmentManager;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
-import com.baidu.location.BDLocation;
-import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
-import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
-import com.baidu.mapapi.map.MapStatus;
-import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
-import com.baidu.mapapi.map.MyLocationData;
-import com.baidu.mapapi.model.LatLng;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.R;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.entities.Icon;
-import com.cgwx.yyfwptz.lixiang.leifeng0_2.entities.Location;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.presenters.HomeFragment.HomeFragmentWithMapPresenter;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.BaseViewInterface;
-import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.activity.MainActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -107,7 +95,7 @@ public class HomeFragmentWithMap extends BaseFragment<HomeFragmentWithMapPresent
     @Override
     public void onDestroy() {
         super.onDestroy();
-        //mLocClient.stop();
+        mLocClient.stop();
         baiduMap.setMyLocationEnabled(false);
         mapView.onDestroy();
         mapView = null;

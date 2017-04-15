@@ -1,5 +1,6 @@
 function load_data(){
     var url = "http://10.10.160.69:8888/";
+    console.log('sdfd');
      $.get(url + new Date().getTime(), function(data){
          $("#feeds").html(data);
          var dataObj=eval('('+data+')');
