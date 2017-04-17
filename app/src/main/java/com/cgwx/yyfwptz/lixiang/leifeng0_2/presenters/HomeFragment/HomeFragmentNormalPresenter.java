@@ -11,8 +11,6 @@ import com.cgwx.yyfwptz.lixiang.leifeng0_2.presenters.BasePresenter;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.activity.MainActivity;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.HomeFragmentNormal;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.HomeFragmentWithMap;
-import com.yixia.camera.util.Log;
-
 import static com.cgwx.yyfwptz.lixiang.leifeng0_2.presenters.mainActivitypresenter.MainActivityPresenter.homeFragmentNormal;
 import static com.cgwx.yyfwptz.lixiang.leifeng0_2.presenters.mainActivitypresenter.MainActivityPresenter.homeFragmentWithMap;
 
@@ -23,8 +21,6 @@ import static com.cgwx.yyfwptz.lixiang.leifeng0_2.presenters.mainActivitypresent
 
 public class HomeFragmentNormalPresenter extends BasePresenter<HomeFragmentNormal, HomeFragmentNormalModelImpl> {
 
-    private FragmentManager fragmentManager;
-
     @Override
     protected HomeFragmentNormalModelImpl getModel() {
         return new HomeFragmentNormalModelImpl();
@@ -32,7 +28,7 @@ public class HomeFragmentNormalPresenter extends BasePresenter<HomeFragmentNorma
 
 
     public void changeFragment() {
-        fragmentManager = MainActivity.mainActivity.getFragmentManager();
+        FragmentManager fragmentManager = MainActivity.mainActivity.getFragmentManager();
         FragmentTransaction fTransaction = fragmentManager.beginTransaction();
         if (homeFragmentNormal != null)
             fTransaction.hide(homeFragmentNormal);
@@ -42,9 +38,14 @@ public class HomeFragmentNormalPresenter extends BasePresenter<HomeFragmentNorma
         } else
             fTransaction.show(homeFragmentWithMap);
 
+//        if (detectFragmentWithMap == null) {
+//            detectFragmentWithMap = new DetectFragmentWithMap();
+//            fTransaction.add(R.id.ly_content, detectFragmentWithMap);
+//        } else
+//            fTransaction.show(detectFragmentWithMap);
+
 
         fTransaction.commit();
-
     }
 
     public void getURLRequest(String request) {

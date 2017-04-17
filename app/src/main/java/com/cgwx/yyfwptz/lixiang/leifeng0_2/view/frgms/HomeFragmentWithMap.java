@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
 import com.baidu.location.LocationClient;
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
@@ -105,12 +104,14 @@ public class HomeFragmentWithMap extends BaseFragment<HomeFragmentWithMapPresent
     @Override
     public void onResume() {
         super.onResume();
+        mapView.setVisibility(View.VISIBLE);
         mapView.onResume();
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        mapView.setVisibility(View.INVISIBLE);
         mapView.onPause();
     }
 

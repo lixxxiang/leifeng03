@@ -2,7 +2,6 @@ package com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms;
 
 import android.app.Activity;
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,9 +12,6 @@ import com.cgwx.yyfwptz.lixiang.leifeng0_2.R;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.presenters.HomeFragment.HomeFragmentNormalPresenter;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.utils.Constants;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.BaseViewInterface;
-import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.activity.MainActivity;
-import com.yixia.camera.util.Log;
-
 import org.apache.cordova.ConfigXmlParser;
 import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
@@ -25,13 +21,8 @@ import org.apache.cordova.engine.SystemWebView;
 import org.apache.cordova.engine.SystemWebViewEngine;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static com.cgwx.yyfwptz.lixiang.leifeng0_2.presenters.mainActivitypresenter.MainActivityPresenter.homeFragmentNormal;
-import static com.cgwx.yyfwptz.lixiang.leifeng0_2.presenters.mainActivitypresenter.MainActivityPresenter.homeFragmentWithMap;
-
 
 /**
  * Created by Jay on 2015/8/28 0028.
@@ -52,7 +43,6 @@ public class HomeFragmentNormal extends BaseFragment<HomeFragmentNormalPresenter
     private final ExecutorService threadPool = Executors.newCachedThreadPool();
     private String content;
     private String URL;
-
     private FragmentManager fragmentManager;
 
     public HomeFragmentNormal() {
@@ -82,11 +72,7 @@ public class HomeFragmentNormal extends BaseFragment<HomeFragmentNormalPresenter
                 /**
                  * to presenter
                  */
-//           changeFragment(homeFragmentNormal,homeFragmentWithMap);
                 fpresenter.changeFragment();
-                Log.e("status","normal-->map");
-                Log.e("status normal", ""+homeFragmentNormal.isHidden());
-                Log.e("status map", ""+homeFragmentWithMap.isHidden());
             }
         });
         return view;

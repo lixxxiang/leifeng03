@@ -3,12 +3,10 @@ package com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms;
 import android.app.FragmentManager;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
 import com.baidu.location.LocationClient;
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
@@ -18,10 +16,8 @@ import com.cgwx.yyfwptz.lixiang.leifeng0_2.R;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.entities.Icon;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.presenters.DetectFragment.DetectFragmentWithMapPresenter;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.BaseViewInterface;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
 import static com.cgwx.yyfwptz.lixiang.leifeng0_2.utils.CheckPermission.checkPermission;
 
 
@@ -106,12 +102,14 @@ public class DetectFragmentWithMap extends BaseFragment<DetectFragmentWithMapPre
     @Override
     public void onResume() {
         super.onResume();
+        mapView.setVisibility(View.VISIBLE);
         mapView.onResume();
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        mapView.setVisibility(View.INVISIBLE);
         mapView.onPause();
     }
 
@@ -119,4 +117,5 @@ public class DetectFragmentWithMap extends BaseFragment<DetectFragmentWithMapPre
     public void getIcons(Object[] objects) {
         icons = (Icon[]) objects;
     }
+
 }
