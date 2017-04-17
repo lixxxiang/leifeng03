@@ -11,6 +11,8 @@ import com.cgwx.yyfwptz.lixiang.leifeng0_2.presenters.BasePresenter;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.activity.MainActivity;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.HomeFragmentNormal;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.HomeFragmentWithMap;
+import com.yixia.camera.util.Log;
+
 import static com.cgwx.yyfwptz.lixiang.leifeng0_2.presenters.mainActivitypresenter.MainActivityPresenter.homeFragmentNormal;
 import static com.cgwx.yyfwptz.lixiang.leifeng0_2.presenters.mainActivitypresenter.MainActivityPresenter.homeFragmentWithMap;
 
@@ -39,7 +41,10 @@ public class HomeFragmentNormalPresenter extends BasePresenter<HomeFragmentNorma
             fTransaction.add(R.id.ly_content, homeFragmentWithMap);
         } else
             fTransaction.show(homeFragmentWithMap);
+
+
         fTransaction.commit();
+
     }
 
     public void getURLRequest(String request) {

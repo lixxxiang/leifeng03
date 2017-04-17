@@ -1,14 +1,12 @@
 package com.cgwx.yyfwptz.lixiang.leifeng0_2.presenters.HomeFragment;
 
 
-import android.Manifest;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
@@ -29,7 +27,6 @@ import com.cgwx.yyfwptz.lixiang.leifeng0_2.entities.Icon;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.models.modelImpl.HomeFragmentWithMapModelImpl;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.models.modelInterface.OnSendArrayListener;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.presenters.BasePresenter;
-import com.cgwx.yyfwptz.lixiang.leifeng0_2.utils.Constants;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.activity.MainActivity;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.HomeFragmentNormal;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.HomeFragmentWithMap;
@@ -39,6 +36,7 @@ import static com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.HomeFragmentWithMap
 import static com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.HomeFragmentWithMap.bitmapDescriptor;
 import static com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.HomeFragmentWithMap.mapView;
 import static com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.HomeFragmentWithMap.requestLocButton;
+
 
 /**
  * Created by yyfwptz on 2017/3/27.
@@ -72,7 +70,9 @@ public class HomeFragmentWithMapPresenter extends BasePresenter<HomeFragmentWith
             fTransaction.replace(R.id.ly_content, homeFragmentNormal);
         } else
             fTransaction.show(homeFragmentNormal);
+
         fTransaction.commit();
+
     }
 
     public void setIcon(Icon[] icons) {
@@ -189,17 +189,6 @@ public class HomeFragmentWithMapPresenter extends BasePresenter<HomeFragmentWith
 
         });
     }
-
-//    public void getLocation() {
-////        myLocation = new Location();
-////        BDLocation location = null;
-////        latitude = location.getLatitude();
-////        longitude = location.getLongitude();
-////        Log.e("--------", String.valueOf(myLocation.getLatitude()) + myLocation.getLongitude());
-//        Log.e("--------out", String.valueOf(latitude) + longitude);
-//
-//    }
-
 
     public class MyLocationListenner implements BDLocationListener {
         boolean isFirstLoc = true;

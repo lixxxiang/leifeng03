@@ -1,14 +1,12 @@
 package com.cgwx.yyfwptz.lixiang.leifeng0_2.presenters.DetectFragment;
 
 
-import android.Manifest;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
@@ -32,11 +30,12 @@ import com.cgwx.yyfwptz.lixiang.leifeng0_2.presenters.BasePresenter;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.activity.MainActivity;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.DetectFragmentNormal;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.DetectFragmentWithMap;
+
 import static com.cgwx.yyfwptz.lixiang.leifeng0_2.presenters.mainActivitypresenter.MainActivityPresenter.detectFragmentNormal;
 import static com.cgwx.yyfwptz.lixiang.leifeng0_2.presenters.mainActivitypresenter.MainActivityPresenter.detectFragmentWithMap;
 import static com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.DetectFragmentWithMap.baiduMap;
 import static com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.DetectFragmentWithMap.bitmapDescriptor;
-import static com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.DetectFragmentWithMap.mapView2;
+import static com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.DetectFragmentWithMap.mapView;
 import static com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.DetectFragmentWithMap.requestLocButton;
 
 
@@ -67,12 +66,14 @@ public class DetectFragmentWithMapPresenter extends BasePresenter<DetectFragment
         FragmentTransaction fTransaction = fragmentManager.beginTransaction();
         if (detectFragmentWithMap != null)
             fTransaction.hide(detectFragmentWithMap);
-        if(detectFragmentNormal == null){
+        if (detectFragmentNormal == null) {
             detectFragmentNormal = new DetectFragmentNormal();
             fTransaction.replace(R.id.ly_content, detectFragmentNormal);
         } else
             fTransaction.show(detectFragmentNormal);
+
         fTransaction.commit();
+
     }
 
     public void setIcon(Icon[] icons) {
@@ -80,7 +81,7 @@ public class DetectFragmentWithMapPresenter extends BasePresenter<DetectFragment
             Log.e("---", String.valueOf(i.getLatitude()));
 
             bitmapDescriptor = BitmapDescriptorFactory.fromResource(R.drawable.icon_gcoding);
-            baiduMap = mapView2.getMap();
+            baiduMap = mapView.getMap();
             baiduMap.setMyLocationEnabled(true);
             /**
              * 缩放等级
@@ -190,15 +191,15 @@ public class DetectFragmentWithMapPresenter extends BasePresenter<DetectFragment
         });
     }
 
-//    public void getLocation() {
-////        myLocation = new Location();
-////        BDLocation location = null;
-////        latitude = location.getLatitude();
-////        longitude = location.getLongitude();
-////        Log.e("--------", String.valueOf(myLocation.getLatitude()) + myLocation.getLongitude());
+    public void getLocation() {
+//        myLocation = new Location();
+//        BDLocation location = null;
+//        latitude = location.getLatitude();
+//        longitude = location.getLongitude();
+//        Log.e("--------", String.valueOf(myLocation.getLatitude()) + myLocation.getLongitude());
 //        Log.e("--------out", String.valueOf(latitude) + longitude);
-//
-//    }
+
+    }
 
 
     public class MyLocationListenner implements BDLocationListener {
@@ -207,7 +208,7 @@ public class DetectFragmentWithMapPresenter extends BasePresenter<DetectFragment
 
         @Override
         public void onReceiveLocation(BDLocation location) {
-            if (location == null || mapView2 == null)
+            if (location == null || mapView == null)
                 return;
 
             MyLocationData locData = new MyLocationData.Builder()

@@ -14,6 +14,7 @@ import com.cgwx.yyfwptz.lixiang.leifeng0_2.presenters.HomeFragment.HomeFragmentN
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.utils.Constants;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.BaseViewInterface;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.activity.MainActivity;
+import com.yixia.camera.util.Log;
 
 import org.apache.cordova.ConfigXmlParser;
 import org.apache.cordova.CordovaInterface;
@@ -27,6 +28,9 @@ import java.util.concurrent.Executors;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.cgwx.yyfwptz.lixiang.leifeng0_2.presenters.mainActivitypresenter.MainActivityPresenter.homeFragmentNormal;
+import static com.cgwx.yyfwptz.lixiang.leifeng0_2.presenters.mainActivitypresenter.MainActivityPresenter.homeFragmentWithMap;
 
 
 /**
@@ -80,6 +84,9 @@ public class HomeFragmentNormal extends BaseFragment<HomeFragmentNormalPresenter
                  */
 //           changeFragment(homeFragmentNormal,homeFragmentWithMap);
                 fpresenter.changeFragment();
+                Log.e("status","normal-->map");
+                Log.e("status normal", ""+homeFragmentNormal.isHidden());
+                Log.e("status map", ""+homeFragmentWithMap.isHidden());
             }
         });
         return view;

@@ -49,7 +49,6 @@ public class DetectFragmentNormal extends BaseFragment<DetectFragmentNormalPrese
     private String content;
     private String URL;
     private FragmentManager fragmentManager;
-    private DetectFragmentWithMap detectFragmentWithMap;
 
     public DetectFragmentNormal() {
 

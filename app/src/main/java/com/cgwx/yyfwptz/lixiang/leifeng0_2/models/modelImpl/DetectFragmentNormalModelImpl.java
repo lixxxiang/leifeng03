@@ -2,7 +2,6 @@ package com.cgwx.yyfwptz.lixiang.leifeng0_2.models.modelImpl;
 
 
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.models.modelInterface.DetectFragmentNormalModelInterface;
-import com.cgwx.yyfwptz.lixiang.leifeng0_2.models.modelInterface.HomeFragmentNormalModelInterface;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.models.modelInterface.OnSendStringListener;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.utils.Constants;
 

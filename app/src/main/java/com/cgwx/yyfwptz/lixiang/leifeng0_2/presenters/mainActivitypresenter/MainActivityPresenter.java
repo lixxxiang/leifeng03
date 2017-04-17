@@ -13,6 +13,7 @@ import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.HomeFragmentNormal;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.HomeFragmentWithMap;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.MoreFragment;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.PrivateFragment;
+import com.yixia.camera.util.Log;
 
 /**
  * Created by yyfwptz on 2017/3/27.
@@ -50,28 +51,51 @@ public class MainActivityPresenter extends BasePresenter<MainActivity, MainActiv
 //        } else {
 //            fTransaction.show(homeFragmentNormal);
 //        }
-        if (homeFragmentWithMap == null ) {
-            homeFragmentWithMap = new HomeFragmentWithMap();
-            fTransaction.add(R.id.ly_content, homeFragmentWithMap);
-        } else {
-            fTransaction.show(homeFragmentNormal);
-        }
+//        if (homeFragmentWithMap == null ) {
+//            homeFragmentWithMap = new HomeFragmentWithMap();
+//            fTransaction.add(R.id.ly_content, homeFragmentWithMap);
+//        } else {
+//            fTransaction.show(homeFragmentNormal);
+//        }
+
+
+
+
 
         switch (checkedId) {
             case R.id.rb_home:
-                if (homeFragmentNormal == null ) {
+                if (homeFragmentNormal == null && homeFragmentWithMap == null) {
                     homeFragmentNormal = new HomeFragmentNormal();
+                    homeFragmentWithMap = new HomeFragmentWithMap();
+                    fTransaction.add(R.id.ly_content, homeFragmentWithMap);
                     fTransaction.add(R.id.ly_content, homeFragmentNormal);
-                } else {
+                    fTransaction.hide(homeFragmentWithMap);
+
+                } else if(homeFragmentWithMap.isHidden()){
+                    Log.e("TAGG",""+homeFragmentNormal.isHidden());
                     fTransaction.show(homeFragmentNormal);
+                    fTransaction.hide(homeFragmentWithMap);
+                } else if(homeFragmentNormal.isHidden()){
+                    Log.e("TAGGG",""+homeFragmentWithMap.isHidden());//1-2 false
+                    fTransaction.show(homeFragmentWithMap);
+                    fTransaction.hide(homeFragmentNormal);
                 }
                 break;
             case R.id.rb_detect:
-                if (detectFragmentNormal == null) {
+                if (detectFragmentNormal == null && detectFragmentWithMap == null) {
                     detectFragmentNormal = new DetectFragmentNormal();
+                    detectFragmentWithMap = new DetectFragmentWithMap();
+                    fTransaction.add(R.id.ly_content, detectFragmentWithMap);
                     fTransaction.add(R.id.ly_content, detectFragmentNormal);
-                } else {
+                    fTransaction.hide(detectFragmentWithMap);
+                } else if(detectFragmentWithMap.isHidden()){
+                    Log.e("TAGG",""+detectFragmentNormal.isHidden());
                     fTransaction.show(detectFragmentNormal);
+                    fTransaction.hide(detectFragmentWithMap);
+                } else if(detectFragmentNormal.isHidden()){
+                    Log.e("TAGGG",""+detectFragmentWithMap.isHidden());//1-2 false
+                    fTransaction.show(detectFragmentWithMap);
+                    fTransaction.hide(detectFragmentNormal);
                 }
                 break;
             case R.id.rb_private:
