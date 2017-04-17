@@ -191,16 +191,6 @@ public class DetectFragmentWithMapPresenter extends BasePresenter<DetectFragment
         });
     }
 
-    public void getLocation() {
-//        myLocation = new Location();
-//        BDLocation location = null;
-//        latitude = location.getLatitude();
-//        longitude = location.getLongitude();
-//        Log.e("--------", String.valueOf(myLocation.getLatitude()) + myLocation.getLongitude());
-//        Log.e("--------out", String.valueOf(latitude) + longitude);
-
-    }
-
 
     public class MyLocationListenner implements BDLocationListener {
         boolean isFirstLoc = true;
