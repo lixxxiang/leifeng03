@@ -30,7 +30,7 @@ public class MainActivityPresenter extends BasePresenter<MainActivity, MainActiv
     public static DetectFragmentWithMap detectFragmentWithMap;
 
     private FragmentManager fragmentManager;
-    private FragmentTransaction beginfTransaction;
+    private FragmentTransaction fragmentTransaction;
 
 
 
@@ -45,88 +45,44 @@ public class MainActivityPresenter extends BasePresenter<MainActivity, MainActiv
 
     public void createFragment(int checkedId) {
         fragmentManager = MainActivity.mainActivity.getFragmentManager();
-        beginfTransaction = fragmentManager.beginTransaction();
-        hideAllFragment(beginfTransaction);
+        fragmentTransaction = fragmentManager.beginTransaction();
+        hideAllFragment(fragmentTransaction);
 
         switch (checkedId) {
             case R.id.rb_home:
-
-                if (homeFragmentNormal == null && homeFragmentWithMap == null) {
+                if (detectFragmentNormal != null)
+                    fragmentTransaction.hide(detectFragmentNormal);
+                if (detectFragmentWithMap != null)
+                    fragmentTransaction.hide(detectFragmentWithMap);
+                if(homeFragmentNormal == null){
                     homeFragmentNormal = new HomeFragmentNormal();
                     homeFragmentWithMap = new HomeFragmentWithMap();
-                    beginfTransaction.add(R.id.ly_content, homeFragmentWithMap);
-                    beginfTransaction.add(R.id.ly_content, homeFragmentNormal);
-                    beginfTransaction.hide(homeFragmentNormal);
-                    beginfTransaction.hide(homeFragmentWithMap);
-                    beginfTransaction.show(homeFragmentNormal);
-                    beginfTransaction.commit();
-                } else if (homeFragmentWithMap.isHidden()) {
-                    beginfTransaction.show(homeFragmentNormal);
-                    beginfTransaction.commit();
-                } else if (homeFragmentNormal.isHidden()) {
-                    beginfTransaction.show(homeFragmentWithMap);
-                    beginfTransaction.commit();
+                    detectFragmentNormal = new DetectFragmentNormal();
+                    detectFragmentWithMap = new DetectFragmentWithMap();
+                    fragmentTransaction.add(R.id.ly_content, homeFragmentNormal);
+                    fragmentTransaction.add(R.id.ly_content, homeFragmentWithMap);
+                    fragmentTransaction.add(R.id.ly_content, detectFragmentNormal);
+                    fragmentTransaction.add(R.id.ly_content, detectFragmentWithMap);
+                    fragmentTransaction.hide(homeFragmentWithMap);
+                    fragmentTransaction.hide(detectFragmentNormal);
+                    fragmentTransaction.hide(detectFragmentWithMap);
+                }else if (detectFragmentNormal.isHidden()){
+                    fragmentTransaction.show(homeFragmentWithMap);
+                }else {
+                    fragmentTransaction.show(homeFragmentNormal);
                 }
-                if (homeFragmentNormal == null) Log.e("TAG-home", "homeFragmentNormal is null");
-                else if (homeFragmentNormal.isHidden())
-                    Log.e("TAG-home", "homeFragmentNormal is hidden");
-                else Log.e("TAG-home", "homeFragmentNormal is show");
-                if (homeFragmentWithMap == null)
-                    Log.e("TAG-homemap", "homeFragmentWithMap is null");
-                else if (homeFragmentWithMap.isHidden())
-                    Log.e("TAG-homemap", "homeFragmentWithMap is hidden");
-                else Log.e("TAG-homemap", "homeFragmentWithMap is show");
-                if (detectFragmentNormal == null)
-                    Log.e("TAG-detect", "detectFragmentNormal is null");
-                else if (detectFragmentNormal.isHidden())
-                    Log.e("TAG-detect", "detectFragmentNormal is hidden");
-                else Log.e("TAG-detect", "detectFragmentNormal is show");
-                if (detectFragmentWithMap == null)
-                    Log.e("TAG-detectmap", "detectFragmentWithMap is null");
-                else if (detectFragmentWithMap.isHidden())
-                    Log.e("TAG-detectmap", "detectFragmentWithMap is hidden");
-                else Log.e("TAG-detectmap", "detectFragmentWithMap is show");
 
                 break;
             case R.id.rb_detect:
-
-                if (detectFragmentNormal == null && detectFragmentWithMap == null) {
-                    detectFragmentNormal = new DetectFragmentNormal();
-                    detectFragmentWithMap = new DetectFragmentWithMap();
-                    beginfTransaction.add(R.id.ly_content, detectFragmentWithMap);
-                    beginfTransaction.add(R.id.ly_content, detectFragmentNormal);
-                    beginfTransaction.hide(detectFragmentWithMap);
-                    beginfTransaction.hide(detectFragmentNormal);
-                    beginfTransaction.show(detectFragmentNormal);
-                    beginfTransaction.commit();
-                } else if (detectFragmentWithMap.isHidden()) {
-                    beginfTransaction.show(detectFragmentNormal);
-                    beginfTransaction.hide(detectFragmentWithMap);
-                    beginfTransaction.commit();
-                } else if (detectFragmentNormal.isHidden()) {
-                    beginfTransaction.show(detectFragmentWithMap);
-                    beginfTransaction.hide(detectFragmentNormal);
-                    beginfTransaction.commit();
+                if (homeFragmentNormal != null)
+                    fragmentTransaction.hide(homeFragmentNormal);
+                if (homeFragmentWithMap != null)
+                    fragmentTransaction.hide(homeFragmentWithMap);
+                if (homeFragmentNormal.isHidden()){
+                    fragmentTransaction.show(detectFragmentWithMap);
+                }else if (homeFragmentWithMap.isHidden()){
+                    fragmentTransaction.show(detectFragmentNormal);
                 }
-                if (homeFragmentNormal == null) Log.e("TAG-home2", "homeFragmentNormal is null");
-                else if (homeFragmentNormal.isHidden())
-                    Log.e("TAG-home2", "homeFragmentNormal is hidden");
-                else Log.e("TAG-home2", "homeFragmentNormal is show");
-                if (homeFragmentWithMap == null)
-                    Log.e("TAG-homemap2", "homeFragmentWithMap is null");
-                else if (homeFragmentWithMap.isHidden())
-                    Log.e("TAG-homemap2", "homeFragmentWithMap is hidden");
-                else Log.e("TAG-homemap2", "homeFragmentWithMap is show");
-                if (detectFragmentNormal == null)
-                    Log.e("TAG-detect2", "detectFragmentNormal is null");
-                else if (detectFragmentNormal.isHidden())
-                    Log.e("TAG-detect2", "detectFragmentNormal is hidden");
-                else Log.e("TAG-detect2", "detectFragmentNormal is show");
-                if (detectFragmentWithMap == null)
-                    Log.e("TAG-detectmap2", "detectFragmentWithMap is null");
-                else if (detectFragmentWithMap.isHidden())
-                    Log.e("TAG-detectmap2", "detectFragmentWithMap is hidden");
-                else Log.e("TAG-detectmap2", "detectFragmentWithMap is show");
 
                 break;
 //            case R.id.rb_private:
@@ -149,7 +105,16 @@ public class MainActivityPresenter extends BasePresenter<MainActivity, MainActiv
 //                fTransaction.commit();
 //
 //                break;
+
+
         }
+        fragmentTransaction.commit();
+    }
+    private void init(){
+        homeFragmentNormal = new HomeFragmentNormal();
+        homeFragmentWithMap = new HomeFragmentWithMap();
+        detectFragmentNormal = new DetectFragmentNormal();
+        detectFragmentWithMap = new DetectFragmentWithMap();
     }
 
     private void hideAllFragment(FragmentTransaction fragmentTransaction) {

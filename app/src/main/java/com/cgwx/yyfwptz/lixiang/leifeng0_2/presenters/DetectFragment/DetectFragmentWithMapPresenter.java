@@ -30,6 +30,7 @@ import com.cgwx.yyfwptz.lixiang.leifeng0_2.presenters.BasePresenter;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.activity.MainActivity;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.DetectFragmentNormal;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.DetectFragmentWithMap;
+
 import static com.cgwx.yyfwptz.lixiang.leifeng0_2.presenters.mainActivitypresenter.MainActivityPresenter.detectFragmentNormal;
 import static com.cgwx.yyfwptz.lixiang.leifeng0_2.presenters.mainActivitypresenter.MainActivityPresenter.detectFragmentWithMap;
 import static com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.DetectFragmentWithMap.baiduMap;
@@ -63,20 +64,8 @@ public class DetectFragmentWithMapPresenter extends BasePresenter<DetectFragment
     public void changeFragment() {
         fragmentManager = MainActivity.mainActivity.getFragmentManager();
         FragmentTransaction fTransaction = fragmentManager.beginTransaction();
-        if (detectFragmentWithMap != null)
-            fTransaction.hide(detectFragmentWithMap);
-        if (detectFragmentNormal == null) {
-            detectFragmentNormal = new DetectFragmentNormal();
-            fTransaction.replace(R.id.ly_content, detectFragmentNormal);
-        } else
-            fTransaction.show(detectFragmentNormal);
-
-//        if (homeFragmentNormal == null) {
-//            homeFragmentNormal = new HomeFragmentNormal();
-//            fTransaction.replace(R.id.ly_content, homeFragmentNormal);
-//        } else
-//            fTransaction.show(homeFragmentNormal);
-
+        fTransaction.hide(detectFragmentWithMap);
+        fTransaction.show(detectFragmentNormal);
         fTransaction.commit();
     }
 

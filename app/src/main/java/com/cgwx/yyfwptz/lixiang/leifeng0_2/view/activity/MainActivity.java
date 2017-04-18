@@ -27,7 +27,7 @@ public class MainActivity extends BaseActivity<MainActivityPresenter, MainActivi
     @BindView(R.id.record)
     ImageView record;
     public static RadioGroup radioGroup;
-
+    public static View view;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +35,7 @@ public class MainActivity extends BaseActivity<MainActivityPresenter, MainActivi
         ButterKnife.bind(this);
         mainActivity = this;
         radioGroup = (RadioGroup) findViewById(R.id.rg_tab_bar);
+        view = findViewById(R.id.div_tab_bar);
         radioGroup.setOnCheckedChangeListener(this);
         radioButton.setChecked(true);
         record.setOnClickListener(new View.OnClickListener() {
@@ -43,7 +44,7 @@ public class MainActivity extends BaseActivity<MainActivityPresenter, MainActivi
                 Log.e("getDidddd", String.valueOf(getDistance(44,125.41,44.03,125.44)));
 //                presenter.performOnClick();//test
 //                Intent intent = new Intent(MainActivity.this, getLocationDemo.class);
-//                MainActivity.this.startActivity(intent);】
+//                MainActivity.this.startActivity(intent);
                 Intent intent = new Intent(MainActivity.this, tempChooseRecordActivity.class);
                 startActivity(intent);
             }

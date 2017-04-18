@@ -66,21 +66,9 @@ public class HomeFragmentWithMapPresenter extends BasePresenter<HomeFragmentWith
     public void changeFragment() {
         fragmentManager = MainActivity.mainActivity.getFragmentManager();
         FragmentTransaction fTransaction = fragmentManager.beginTransaction();
-        if (homeFragmentWithMap != null)
-            fTransaction.hide(homeFragmentWithMap);
-        if (homeFragmentNormal == null) {
-            homeFragmentNormal = new HomeFragmentNormal();
-            fTransaction.replace(R.id.ly_content, homeFragmentNormal);
-        } else
-            fTransaction.show(homeFragmentNormal);
-
-//        if (detectFragmentNormal == null) {
-//            detectFragmentNormal = new DetectFragmentNormal();
-//            fTransaction.replace(R.id.ly_content, detectFragmentNormal);
-//        } else
-//            fTransaction.show(detectFragmentNormal);
+        fTransaction.hide(homeFragmentWithMap);
+        fTransaction.show(homeFragmentNormal);
         fTransaction.commit();
-
     }
 
     public void setIcon(Icon[] icons) {
