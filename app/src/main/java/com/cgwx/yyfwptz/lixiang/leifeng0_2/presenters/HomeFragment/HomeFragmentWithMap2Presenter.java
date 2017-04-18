@@ -28,20 +28,20 @@ import com.cgwx.yyfwptz.lixiang.leifeng0_2.models.modelImpl.HomeFragmentWithMapM
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.models.modelInterface.OnSendArrayListener;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.presenters.BasePresenter;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.activity.MainActivity;
-import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.HomeFragmentWithMap;
+import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.HomeFragmentWithMap2;
+
 import static com.cgwx.yyfwptz.lixiang.leifeng0_2.presenters.mainActivitypresenter.MainActivityPresenter.homeFragmentNormal;
 import static com.cgwx.yyfwptz.lixiang.leifeng0_2.presenters.mainActivitypresenter.MainActivityPresenter.homeFragmentWithMap2;
-import static com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.HomeFragmentWithMap.baiduMap;
-import static com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.HomeFragmentWithMap.bitmapDescriptor;
-import static com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.HomeFragmentWithMap.mapView;
-import static com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.HomeFragmentWithMap.requestLocButton;
+import static com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.HomeFragmentWithMap2.baiduMap;
+import static com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.HomeFragmentWithMap2.bitmapDescriptor;
+import static com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.HomeFragmentWithMap2.mapView;
 
 
 /**
  * Created by yyfwptz on 2017/3/27.
  */
 
-public class HomeFragmentWithMapPresenter extends BasePresenter<HomeFragmentWithMap, HomeFragmentWithMapModelImpl> {
+public class HomeFragmentWithMap2Presenter extends BasePresenter<HomeFragmentWithMap2, HomeFragmentWithMapModelImpl> {
 
     private FragmentManager fragmentManager;
     private MapStatusUpdate mapStatusUpdate;
@@ -50,7 +50,7 @@ public class HomeFragmentWithMapPresenter extends BasePresenter<HomeFragmentWith
     private InfoWindow infoWindow;
     private MyLocationConfiguration.LocationMode mCurrentMode;
     private LocationClient mLocClient;
-    private HomeFragmentWithMapPresenter.MyLocationListenner myListener = new MyLocationListenner();
+    private HomeFragmentWithMap2Presenter.MyLocationListenner myListener = new MyLocationListenner();
 
 
     @Override
@@ -129,37 +129,37 @@ public class HomeFragmentWithMapPresenter extends BasePresenter<HomeFragmentWith
 
     public void setLocationMode() {
         mCurrentMode = MyLocationConfiguration.LocationMode.COMPASS;
-        requestLocButton.setText("普通");
-        View.OnClickListener btnClickListener = new View.OnClickListener() {
-            public void onClick(View v) {
-                switch (mCurrentMode) {
-                    case NORMAL:
-                        requestLocButton.setText("跟随");
-                        mCurrentMode = MyLocationConfiguration.LocationMode.FOLLOWING;
-                        baiduMap
-                                .setMyLocationConfigeration(new MyLocationConfiguration(
-                                        mCurrentMode, true, bitmapDescriptor));
-                        break;
-                    case COMPASS:
-                        requestLocButton.setText("普通");
-                        mCurrentMode = MyLocationConfiguration.LocationMode.NORMAL;
-                        baiduMap
-                                .setMyLocationConfigeration(new MyLocationConfiguration(
-                                        mCurrentMode, true, bitmapDescriptor));
-                        break;
-                    case FOLLOWING:
-                        requestLocButton.setText("罗盘");
-                        mCurrentMode = MyLocationConfiguration.LocationMode.COMPASS;
-                        baiduMap
-                                .setMyLocationConfigeration(new MyLocationConfiguration(
-                                        mCurrentMode, true, bitmapDescriptor));
-                        break;
-                    default:
-                        break;
-                }
-            }
-        };
-        requestLocButton.setOnClickListener(btnClickListener);
+//        requestLocButton.setText("普通");
+//        View.OnClickListener btnClickListener = new View.OnClickListener() {
+//            public void onClick(View v) {
+//                switch (mCurrentMode) {
+//                    case NORMAL:
+//                        requestLocButton.setText("跟随");
+//                        mCurrentMode = MyLocationConfiguration.LocationMode.FOLLOWING;
+//                        baiduMap
+//                                .setMyLocationConfigeration(new MyLocationConfiguration(
+//                                        mCurrentMode, true, bitmapDescriptor));
+//                        break;
+//                    case COMPASS:
+//                        requestLocButton.setText("普通");
+//                        mCurrentMode = MyLocationConfiguration.LocationMode.NORMAL;
+//                        baiduMap
+//                                .setMyLocationConfigeration(new MyLocationConfiguration(
+//                                        mCurrentMode, true, bitmapDescriptor));
+//                        break;
+//                    case FOLLOWING:
+//                        requestLocButton.setText("罗盘");
+//                        mCurrentMode = MyLocationConfiguration.LocationMode.COMPASS;
+//                        baiduMap
+//                                .setMyLocationConfigeration(new MyLocationConfiguration(
+//                                        mCurrentMode, true, bitmapDescriptor));
+//                        break;
+//                    default:
+//                        break;
+//                }
+//            }
+//        };
+//        requestLocButton.setOnClickListener(btnClickListener);
 
         mLocClient = new LocationClient(MainActivity.mainActivity);
         mLocClient.registerLocationListener(myListener);

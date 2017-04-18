@@ -9,7 +9,7 @@ import com.cgwx.yyfwptz.lixiang.leifeng0_2.presenters.BasePresenter;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.activity.MainActivity;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.HomeFragmentNormal;
 import static com.cgwx.yyfwptz.lixiang.leifeng0_2.presenters.mainActivitypresenter.MainActivityPresenter.homeFragmentNormal;
-import static com.cgwx.yyfwptz.lixiang.leifeng0_2.presenters.mainActivitypresenter.MainActivityPresenter.homeFragmentWithMap;
+import static com.cgwx.yyfwptz.lixiang.leifeng0_2.presenters.mainActivitypresenter.MainActivityPresenter.homeFragmentWithMap2;
 
 
 /**
@@ -28,7 +28,9 @@ public class HomeFragmentNormalPresenter extends BasePresenter<HomeFragmentNorma
         FragmentManager fragmentManager = MainActivity.mainActivity.getFragmentManager();
         FragmentTransaction fTransaction = fragmentManager.beginTransaction();
         fTransaction.hide(homeFragmentNormal);
-        fTransaction.show(homeFragmentWithMap);
+//        fTransaction.show(homeFragmentWithMap);
+        fTransaction.show(homeFragmentWithMap2);
+
         fTransaction.commit();
     }
 

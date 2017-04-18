@@ -12,9 +12,9 @@ import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.DetectFragmentNormal;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.DetectFragmentWithMap;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.HomeFragmentNormal;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.HomeFragmentWithMap;
+import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.HomeFragmentWithMap2;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.MoreFragment;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.PrivateFragment;
-import com.yixia.camera.util.Log;
 
 /**
  * Created by yyfwptz on 2017/3/27.
@@ -25,13 +25,13 @@ public class MainActivityPresenter extends BasePresenter<MainActivity, MainActiv
     private PrivateFragment privateFragment;
     private MoreFragment moreFragment;
     public static HomeFragmentNormal homeFragmentNormal;
-    public static HomeFragmentWithMap homeFragmentWithMap;
+//    public static HomeFragmentWithMap homeFragmentWithMap;
+    public static HomeFragmentWithMap2 homeFragmentWithMap2;
     public static DetectFragmentNormal detectFragmentNormal;
     public static DetectFragmentWithMap detectFragmentWithMap;
 
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
-
 
 
     @Override
@@ -54,36 +54,47 @@ public class MainActivityPresenter extends BasePresenter<MainActivity, MainActiv
                     fragmentTransaction.hide(detectFragmentNormal);
                 if (detectFragmentWithMap != null)
                     fragmentTransaction.hide(detectFragmentWithMap);
-                if(homeFragmentNormal == null){
+                if (homeFragmentNormal == null) {
                     homeFragmentNormal = new HomeFragmentNormal();
-                    homeFragmentWithMap = new HomeFragmentWithMap();
+//                    homeFragmentWithMap = new HomeFragmentWithMap();
+
+                    homeFragmentWithMap2 = new HomeFragmentWithMap2();
+
                     detectFragmentNormal = new DetectFragmentNormal();
                     detectFragmentWithMap = new DetectFragmentWithMap();
                     fragmentTransaction.add(R.id.ly_content, homeFragmentNormal);
-                    fragmentTransaction.add(R.id.ly_content, homeFragmentWithMap);
+//                    fragmentTransaction.add(R.id.ly_content, homeFragmentWithMap);
+
+                    fragmentTransaction.add(R.id.ly_content, homeFragmentWithMap2);
+
                     fragmentTransaction.add(R.id.ly_content, detectFragmentNormal);
                     fragmentTransaction.add(R.id.ly_content, detectFragmentWithMap);
-                    fragmentTransaction.hide(homeFragmentWithMap);
+//                    fragmentTransaction.hide(homeFragmentWithMap);
+                    fragmentTransaction.hide(homeFragmentWithMap2);
+
                     fragmentTransaction.hide(detectFragmentNormal);
                     fragmentTransaction.hide(detectFragmentWithMap);
-                }else if (detectFragmentNormal.isHidden()){
-                    fragmentTransaction.show(homeFragmentWithMap);
-                }else {
-                    fragmentTransaction.show(homeFragmentNormal);
-                }
+                } else if (detectFragmentNormal.isHidden())
+//                    fragmentTransaction.show(homeFragmentWithMap);
+                fragmentTransaction.show(homeFragmentWithMap2);
 
+                else
+                    fragmentTransaction.show(homeFragmentNormal);
                 break;
             case R.id.rb_detect:
                 if (homeFragmentNormal != null)
                     fragmentTransaction.hide(homeFragmentNormal);
-                if (homeFragmentWithMap != null)
-                    fragmentTransaction.hide(homeFragmentWithMap);
-                if (homeFragmentNormal.isHidden()){
-                    fragmentTransaction.show(detectFragmentWithMap);
-                }else if (homeFragmentWithMap.isHidden()){
-                    fragmentTransaction.show(detectFragmentNormal);
-                }
+//                if (homeFragmentWithMap != null)
+//                    fragmentTransaction.hide(homeFragmentWithMap);
+                if (homeFragmentWithMap2 != null)
+                    fragmentTransaction.hide(homeFragmentWithMap2);
 
+                if (homeFragmentNormal.isHidden())
+                    fragmentTransaction.show(detectFragmentWithMap);
+//                else if (homeFragmentWithMap.isHidden())
+                else if (homeFragmentWithMap2.isHidden())
+
+                    fragmentTransaction.show(detectFragmentNormal);
                 break;
 //            case R.id.rb_private:
 //                if (privateFragment == null) {
@@ -106,15 +117,8 @@ public class MainActivityPresenter extends BasePresenter<MainActivity, MainActiv
 //
 //                break;
 
-
         }
         fragmentTransaction.commit();
-    }
-    private void init(){
-        homeFragmentNormal = new HomeFragmentNormal();
-        homeFragmentWithMap = new HomeFragmentWithMap();
-        detectFragmentNormal = new DetectFragmentNormal();
-        detectFragmentWithMap = new DetectFragmentWithMap();
     }
 
     private void hideAllFragment(FragmentTransaction fragmentTransaction) {

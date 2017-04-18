@@ -13,6 +13,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.BAIDU_LOCATION_SERVICE" />
 
     <application
         android:name=".LFApplication"
@@ -47,6 +48,11 @@
         <activity android:name="mabeijianxi.camera.MediaRecorderActivity"/>
         <activity android:name=".view.activity.SendSmallVideoActivity"
             android:theme="@style/AppNoBarTheme" />
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" >
+        </service>
 
     </application>
 
