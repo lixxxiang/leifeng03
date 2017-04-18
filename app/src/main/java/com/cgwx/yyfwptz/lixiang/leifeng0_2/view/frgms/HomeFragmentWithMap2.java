@@ -1,20 +1,12 @@
 package com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms;
 
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -30,7 +22,6 @@ import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
-import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.TextureMapView;
@@ -63,7 +54,6 @@ public class HomeFragmentWithMap2 extends BaseFragment<HomeFragmentWithMap2Prese
     private double mLatitude;
     private double mLongitude;
     private float mCurrentX;
-    //    public static Button requestLocButton;
     @BindView(R.id.changeView)
     Button changeView;
     private FragmentManager fragmentManager;
@@ -73,7 +63,8 @@ public class HomeFragmentWithMap2 extends BaseFragment<HomeFragmentWithMap2Prese
 
     //自定义图标
     private BitmapDescriptor mIconLocation;
-
+//testtt
+    //eteete
     public static BitmapDescriptor bitmapDescriptor;
 
     private MyOrientationListener myOrientationListener;
@@ -163,7 +154,6 @@ public class HomeFragmentWithMap2 extends BaseFragment<HomeFragmentWithMap2Prese
             @Override
             public void onOrientationChanged(float x) {
                 mCurrentX = x;
-                Log.e("方向:x---->", ""+x);
             }
         });
     }
