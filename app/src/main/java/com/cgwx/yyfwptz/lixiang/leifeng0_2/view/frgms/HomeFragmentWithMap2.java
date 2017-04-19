@@ -77,7 +77,7 @@ public class HomeFragmentWithMap2 extends BaseFragment<HomeFragmentWithMap2Prese
 
 
         SDKInitializer.initialize(getActivity().getApplication());
-        view = inflater.inflate(R.layout.home_fragment_with_map2, container, false);
+        view = inflater.inflate(R.layout.home_fragment_with_map2test, container, false);
         ButterKnife.bind(this, view);
         context = getActivity();
         mapView = (TextureMapView) view.findViewById(R.id.bmapView);
