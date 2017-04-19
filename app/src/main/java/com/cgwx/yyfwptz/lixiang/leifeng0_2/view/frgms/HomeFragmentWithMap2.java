@@ -60,7 +60,7 @@ public class HomeFragmentWithMap2 extends BaseFragment<HomeFragmentWithMap2Prese
     private Icon[] icons;
     private MapStatusUpdate mapStatusUpdate;
 
-
+//qwfeqfqegwrgwr
     //自定义图标
     private BitmapDescriptor mIconLocation;
 //testtt
