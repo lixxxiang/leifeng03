@@ -18,7 +18,7 @@ import com.cgwx.yyfwptz.lixiang.leifeng0_2.presenters.HomeFragment.HomeFragmentW
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.BaseViewInterface;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import static com.cgwx.yyfwptz.lixiang.leifeng0_2.utils.CheckPermission.checkPermission;
+import static com.cgwx.yyfwptz.lixiang.leifeng0_2.utils.Utils.checkPermission;
 
 
 /**

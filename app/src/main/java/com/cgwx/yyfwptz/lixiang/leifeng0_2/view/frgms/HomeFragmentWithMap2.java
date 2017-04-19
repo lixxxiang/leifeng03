@@ -29,15 +29,14 @@ import com.baidu.mapapi.model.LatLng;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.R;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.entities.Icon;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.presenters.HomeFragment.HomeFragmentWithMap2Presenter;
-import com.cgwx.yyfwptz.lixiang.leifeng0_2.presenters.HomeFragment.HomeFragmentWithMapPresenter;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.BaseViewInterface;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.activity.MainActivity;
-import com.yixia.camera.util.Log;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.cgwx.yyfwptz.lixiang.leifeng0_2.utils.CheckPermission.checkPermission;
+import static com.cgwx.yyfwptz.lixiang.leifeng0_2.utils.Utils.checkPermission;
+import static com.cgwx.yyfwptz.lixiang.leifeng0_2.utils.Utils.icon_format;
 
 
 /**
@@ -59,14 +58,12 @@ public class HomeFragmentWithMap2 extends BaseFragment<HomeFragmentWithMap2Prese
     private FragmentManager fragmentManager;
     private Icon[] icons;
     private MapStatusUpdate mapStatusUpdate;
+    private LatLng currentPt;
 
-//qwfeqfqegwrgwr
     //自定义图标
     private BitmapDescriptor mIconLocation;
-//testtt
-    //eteete
-    //dfsfdsdfsdf
     public static BitmapDescriptor bitmapDescriptor;
+    public static BitmapDescriptor setLocationIcon;
 
     private MyOrientationListener myOrientationListener;
     //定位图层显示方式
@@ -99,6 +96,28 @@ public class HomeFragmentWithMap2 extends BaseFragment<HomeFragmentWithMap2Prese
 
 //        myOrientationListener.start();
         fragmentManager = getFragmentManager();
+        final int[] flag = {0};
+        baiduMap.setOnMapLongClickListener(new BaiduMap.OnMapLongClickListener() {
+            @Override
+            public void onMapLongClick(LatLng latLng) {
+                if(flag[0] == 0){
+                    BitmapFactory.Options options = new BitmapFactory.Options();
+                    Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.icon_focus_marka, options);
+                    setLocationIcon = BitmapDescriptorFactory.fromBitmap(icon_format(bitmap, 75, 120));
+                    currentPt = latLng;
+                    fpresenter.setPosition(currentPt.latitude, currentPt.longitude, setLocationIcon);
+                    flag[0] = 1;
+                }else{
+                    fpresenter.removeIcon();
+                    BitmapFactory.Options options = new BitmapFactory.Options();
+                    Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.icon_focus_marka, options);
+                    setLocationIcon = BitmapDescriptorFactory.fromBitmap(icon_format(bitmap, 75, 120));
+                    currentPt = latLng;
+                    fpresenter.setPosition(currentPt.latitude, currentPt.longitude, setLocationIcon);
+                }
+
+            }
+        });
         changeView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -139,16 +158,7 @@ public class HomeFragmentWithMap2 extends BaseFragment<HomeFragmentWithMap2Prese
         mlocationClient.start();
         BitmapFactory.Options options = new BitmapFactory.Options();
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.location_marker, options);
-        int width = bitmap.getWidth();
-        int height = bitmap.getHeight();
-        int newWidth = 100;
-        int newHeight = 100;
-        float scaleWidth = ((float) newWidth) / width;
-        float scaleHeight = ((float) newHeight) / height;
-        Matrix matrix = new Matrix();
-        matrix.postScale(scaleWidth, scaleHeight);
-        bitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true);
-        bitmap = rotateBitmap(bitmap, 330);
+        bitmap = rotateBitmap(icon_format(bitmap, 100, 100), 330);
         mIconLocation = BitmapDescriptorFactory.fromBitmap(bitmap);
         myOrientationListener = new MyOrientationListener(context);
         myOrientationListener.setOnOrientationListener(new MyOrientationListener.OnOrientationListener() {

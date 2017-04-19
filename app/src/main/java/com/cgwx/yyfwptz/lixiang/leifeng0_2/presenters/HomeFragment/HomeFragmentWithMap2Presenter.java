@@ -3,6 +3,8 @@ package com.cgwx.yyfwptz.lixiang.leifeng0_2.presenters.HomeFragment;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +14,7 @@ import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.InfoWindow;
 import com.baidu.mapapi.map.MapStatus;
@@ -32,9 +35,11 @@ import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.HomeFragmentWithMap2;
 
 import static com.cgwx.yyfwptz.lixiang.leifeng0_2.presenters.mainActivitypresenter.MainActivityPresenter.homeFragmentNormal;
 import static com.cgwx.yyfwptz.lixiang.leifeng0_2.presenters.mainActivitypresenter.MainActivityPresenter.homeFragmentWithMap2;
+import static com.cgwx.yyfwptz.lixiang.leifeng0_2.utils.Utils.icon_format;
 import static com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.HomeFragmentWithMap2.baiduMap;
 import static com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.HomeFragmentWithMap2.bitmapDescriptor;
 import static com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.HomeFragmentWithMap2.mapView;
+import static com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.HomeFragmentWithMap2.setLocationIcon;
 
 
 /**
@@ -102,18 +107,51 @@ public class HomeFragmentWithMap2Presenter extends BasePresenter<HomeFragmentWit
                     return true;
                 }
             });
-            initOverlay(i.getLatitude(), i.getLangitude());
+            initOverlay(i.getLatitude(), i.getLangitude(),bitmapDescriptor);
         }
     }
 
-    public void initOverlay(double latitude, double langitude) {
+    public void setPosition(double latitude, double langitude, BitmapDescriptor bitmapDescriptor){
+        baiduMap = mapView.getMap();
+        baiduMap.setMyLocationEnabled(true);
+        /**
+         * 缩放等级
+         */
+        mapStatusUpdate = MapStatusUpdateFactory.zoomTo(17.0f);
+        baiduMap.setMapStatus(mapStatusUpdate);
+
+        baiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
+            public boolean onMarkerClick(final Marker marker) {
+                hideButton = new Button(MainActivity.mainActivity.getApplicationContext());
+                InfoWindow.OnInfoWindowClickListener listener = null;
+                if (marker == markerA) {
+                    /**
+                     * 透明
+                     */
+                    hideButton.setBackgroundColor(0x000000);
+                    listener = new InfoWindow.OnInfoWindowClickListener() {
+                        public void onInfoWindowClick() {
+//                            Toast.makeText(MainActivity.mainActivity, "dd", Toast.LENGTH_SHORT).show();
+                        }
+                    };
+                    LatLng ll = marker.getPosition();
+                    infoWindow = new InfoWindow(BitmapDescriptorFactory.fromView(hideButton), ll, -47, listener);
+                    baiduMap.showInfoWindow(infoWindow);
+                }
+                return true;
+            }
+        });
+        initOverlay(latitude,langitude, bitmapDescriptor);
+    }
+
+    public void initOverlay(double latitude, double langitude, BitmapDescriptor bitmapDescriptor) {
         LatLng latLng = new LatLng(latitude, langitude);
         MarkerOptions markerOptions = new MarkerOptions()
                 .position(latLng)
                 .icon(bitmapDescriptor)
                 .zIndex(9)
                 .draggable(true);
-        markerOptions.animateType(MarkerOptions.MarkerAnimateType.drop);
+//        markerOptions.animateType(MarkerOptions.MarkerAnimateType.drop);
         markerA = (Marker) (baiduMap.addOverlay(markerOptions));
         baiduMap.setOnMarkerDragListener(new BaiduMap.OnMarkerDragListener() {
             public void onMarkerDrag(Marker marker) {
@@ -125,6 +163,10 @@ public class HomeFragmentWithMap2Presenter extends BasePresenter<HomeFragmentWit
             public void onMarkerDragStart(Marker marker) {
             }
         });
+    }
+
+    public void removeIcon(){
+        markerA.remove();
     }
 
     public void setLocationMode() {

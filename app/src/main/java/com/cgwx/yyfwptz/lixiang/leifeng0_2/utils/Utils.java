@@ -2,6 +2,8 @@ package com.cgwx.yyfwptz.lixiang.leifeng0_2.utils;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.os.Build;
 
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.activity.MainActivity;
@@ -10,7 +12,7 @@ import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.activity.MainActivity;
  * Created by yyfwptz on 2017/4/14.
  */
 
-public class CheckPermission {
+public class Utils {
 
 //    public static FragmentManager fragmentManager;
 
@@ -23,6 +25,17 @@ public class CheckPermission {
             if (MainActivity.mainActivity.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
                 MainActivity.mainActivity.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, Constants.PERMISSION_REQUEST_COARSE_LOCATION);
         }
+    }
+
+    public static Bitmap icon_format(Bitmap bitmap,int newWidth, int newHeight){
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+        float scaleWidth = ((float) newWidth) / width;
+        float scaleHeight = ((float) newHeight) / height;
+        Matrix matrix = new Matrix();
+        matrix.postScale(scaleWidth, scaleHeight);
+        bitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true);
+        return bitmap;
     }
 
 //    public static void changeFragment(Fragment fragment1, Fragment fragment2){
