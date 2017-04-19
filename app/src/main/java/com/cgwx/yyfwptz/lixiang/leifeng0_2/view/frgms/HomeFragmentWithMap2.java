@@ -65,6 +65,7 @@ public class HomeFragmentWithMap2 extends BaseFragment<HomeFragmentWithMap2Prese
     private BitmapDescriptor mIconLocation;
 //testtt
     //eteete
+    //dfsfdsdfsdf
     public static BitmapDescriptor bitmapDescriptor;
 
     private MyOrientationListener myOrientationListener;
