@@ -27,6 +27,8 @@ public class tempChooseRecordActivity extends AppCompatActivity {
     Button button1;
     @BindView(R.id.btn2)
     Button button2;
+    @BindView(R.id.btn3)
+    Button button3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +61,8 @@ public class tempChooseRecordActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
     }
 
     public static void initSmallVideo(Context context) {

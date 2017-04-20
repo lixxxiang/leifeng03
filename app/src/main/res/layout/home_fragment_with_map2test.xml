@@ -33,7 +33,7 @@
         app:isSupportExit="true"
         app:maxOffset="200dp"
         app:minOffset="50dp"
-        app:mode="close">
+        app:mode="exit">
 
         <com.yinglan.scrolllayout.content.ContentScrollView
             android:id="@+id/content_scroll_layout"
@@ -44,6 +44,7 @@
             <EditText
                 android:id="@+id/text_view"
                 android:layout_width="match_parent"
+                android:background="@null"
                 android:layout_height="200dp" />
 
         </com.yinglan.scrolllayout.content.ContentScrollView>

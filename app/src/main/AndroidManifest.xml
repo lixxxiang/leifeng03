@@ -48,6 +48,7 @@
         <activity android:name="mabeijianxi.camera.MediaRecorderActivity"/>
         <activity android:name=".view.activity.SendSmallVideoActivity"
             android:theme="@style/AppNoBarTheme" />
+
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"

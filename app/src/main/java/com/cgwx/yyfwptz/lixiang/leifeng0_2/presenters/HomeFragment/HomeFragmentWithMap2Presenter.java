@@ -256,9 +256,11 @@ public class HomeFragmentWithMap2Presenter extends BasePresenter<HomeFragmentWit
             public void onMapLongClick(LatLng latLng) {
                 if(flag[0] == 0){
                     showIcon(res, latLng);
+                    scrollLayout.setToOpen();
                     flag[0] = 1;
                 }else{
                     removeIcon();
+                    scrollLayout.setToOpen();
                     showIcon(res, latLng);
                 }
             }
