@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
@@ -31,6 +30,7 @@ import com.cgwx.yyfwptz.lixiang.leifeng0_2.entities.Icon;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.presenters.HomeFragment.HomeFragmentWithMap2Presenter;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.BaseViewInterface;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.activity.MainActivity;
+import com.yinglan.scrolllayout.ScrollLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -59,15 +59,51 @@ public class HomeFragmentWithMap2 extends BaseFragment<HomeFragmentWithMap2Prese
     private Icon[] icons;
     private MapStatusUpdate mapStatusUpdate;
     private LatLng currentPt;
-
-    //自定义图标
     private BitmapDescriptor mIconLocation;
     public static BitmapDescriptor bitmapDescriptor;
     public static BitmapDescriptor setLocationIcon;
-
     private MyOrientationListener myOrientationListener;
-    //定位图层显示方式
     private MyLocationConfiguration.LocationMode locationMode;
+    private ScrollLayout mScrollLayout;
+
+
+    private MainPagerAdapter.OnClickItemListenerImpl mOnClickItemListener = new MainPagerAdapter.OnClickItemListenerImpl() {
+        @Override
+        public void onClickItem(View item, int position) {
+            if (mScrollLayout.getCurrentStatus() == ScrollLayout.Status.OPENED) {
+                mScrollLayout.scrollToClose();
+            }
+        }
+    };
+
+
+    private ScrollLayout.OnScrollChangedListener mOnScrollChangedListener = new ScrollLayout.OnScrollChangedListener() {
+        @Override
+        public void onScrollProgressChanged(float currentProgress) {
+            if(currentProgress >= 0) {
+                float precent = 255 * currentProgress;
+                if (precent > 255) {
+                    precent = 255;
+                } else if (precent < 0) {
+                    precent = 0;
+                }
+                mScrollLayout.getBackground().setAlpha(255 - (int) precent);
+            }
+        }
+
+        @Override
+        public void onScrollFinished(ScrollLayout.Status currentStatus) {
+            if (currentStatus.equals(ScrollLayout.Status.EXIT)) {
+//                getActivity().finish();
+            }
+        }
+
+        @Override
+        public void onChildScroll(int top) {
+        }
+    };
+
+
 
     public HomeFragmentWithMap2() {
     }
@@ -80,6 +116,15 @@ public class HomeFragmentWithMap2 extends BaseFragment<HomeFragmentWithMap2Prese
         view = inflater.inflate(R.layout.home_fragment_with_map2test, container, false);
         ButterKnife.bind(this, view);
         context = getActivity();
+
+
+        mScrollLayout = (ScrollLayout) view.findViewById(R.id.scroll_down_layout);
+        mScrollLayout.setOnScrollChangedListener(mOnScrollChangedListener);
+        mScrollLayout.getBackground().setAlpha(0);
+
+        MainPagerAdapter mainPagerAdapter = new MainPagerAdapter(getActivity());
+        mainPagerAdapter.setOnClickItemListener(mOnClickItemListener);
+
         mapView = (TextureMapView) view.findViewById(R.id.bmapView);
 //        requestLocButton = (Button) view.findViewById(R.id.button1);
         /**
@@ -136,24 +181,15 @@ public class HomeFragmentWithMap2 extends BaseFragment<HomeFragmentWithMap2Prese
     private void initLocation() {
         locationMode = MyLocationConfiguration.LocationMode.NORMAL;
 
-        //定位服务的客户端。宿主程序在客户端声明此类，并调用，目前只支持在主线程中启动
         mlocationClient = new LocationClient(MainActivity.mainActivity);
         mlistener = new MylocationListener();
-
-        //注册监听器
         mlocationClient.registerLocationListener(mlistener);
-        //配置定位SDK各配置参数，比如定位模式、定位时间间隔、坐标系类型等
         LocationClientOption mOption = new LocationClientOption();
-        //设置坐标类型
         mOption.setCoorType("bd09ll");
-        //设置是否需要地址信息，默认为无地址
         mOption.setIsNeedAddress(true);
-        //设置是否打开gps进行定位
         mOption.setOpenGps(true);
-        //设置扫描间隔，单位是毫秒 当<1000(1s)时，定时定位无效
         int span = 1000;
         mOption.setScanSpan(span);
-        //设置 LocationClientOption
         mlocationClient.setLocOption(mOption);
         mlocationClient.start();
         BitmapFactory.Options options = new BitmapFactory.Options();
@@ -193,54 +229,27 @@ public class HomeFragmentWithMap2 extends BaseFragment<HomeFragmentWithMap2Prese
         myOrientationListener.stop();
     }
 
-    //所有的定位信息都通过接口回调来实现
     public class MylocationListener implements BDLocationListener {
-        //定位请求回调接口
         private boolean isFirstIn = true;
 
-        //定位请求回调函数,这里面会得到定位信息
         @Override
         public void onReceiveLocation(BDLocation bdLocation) {
-            //BDLocation 回调的百度坐标类，内部封装了如经纬度、半径等属性信息
-            //MyLocationData 定位数据,定位数据建造器
-            /*
-            * 可以通过BDLocation配置如下参数
-            * 1.accuracy 定位精度
-            * 2.latitude 百度纬度坐标
-            * 3.longitude 百度经度坐标
-            * 4.satellitesNum GPS定位时卫星数目 getSatelliteNumber() gps定位结果时，获取gps锁定用的卫星数
-            * 5.speed GPS定位时速度 getSpeed()获取速度，仅gps定位结果时有速度信息，单位公里/小时，默认值0.0f
-            * 6.direction GPS定位时方向角度
-            *
-            *
-            * */
+
             mLatitude = bdLocation.getLatitude();
             mLongitude = bdLocation.getLongitude();
             MyLocationData data = new MyLocationData.Builder()
-                    .direction(mCurrentX)//设定图标方向
-                    .accuracy(bdLocation.getRadius())//getRadius 获取定位精度,默认值0.0f
-                    .latitude(mLatitude)//百度纬度坐标
-                    .longitude(mLongitude)//百度经度坐标
+                    .direction(mCurrentX)
+                    .accuracy(bdLocation.getRadius())
+                    .latitude(mLatitude)
+                    .longitude(mLongitude)
                     .build();
-            //设置定位数据, 只有先允许定位图层后设置数据才会生效，参见 setMyLocationEnabled(boolean)
             baiduMap.setMyLocationData(data);
-            //配置定位图层显示方式,三个参数的构造器
-            /*
-            * 1.定位图层显示模式
-            * 2.是否允许显示方向信息
-            * 3.用户自定义定位图标
-            *
-            * */
             MyLocationConfiguration configuration
                     = new MyLocationConfiguration(locationMode, true, mIconLocation);
-            //设置定位图层配置信息，只有先允许定位图层后设置定位图层配置信息才会生效，参见 setMyLocationEnabled(boolean)
             baiduMap.setMyLocationConfigeration(configuration);
 
-            //判断是否为第一次定位,是的话需要定位到用户当前位置
             if (isFirstIn) {
-                //地理坐标基本数据结构
                 LatLng latLng = new LatLng(bdLocation.getLatitude(), bdLocation.getLongitude());
-                //描述地图状态将要发生的变化,通过当前经纬度来使地图显示到该位置
                 MapStatusUpdate msu = MapStatusUpdateFactory.newLatLng(latLng);
                 baiduMap.setMapStatus(msu);
                 baiduMap.setMapStatus(MapStatusUpdateFactory.newMapStatus(new MapStatus.Builder().zoom(17).build()));
@@ -257,7 +266,6 @@ public class HomeFragmentWithMap2 extends BaseFragment<HomeFragmentWithMap2Prese
         int height = origin.getHeight();
         Matrix matrix = new Matrix();
         matrix.setRotate(alpha);
-        // 围绕原地进行旋转
         Bitmap newBM = Bitmap.createBitmap(origin, 0, 0, width, height, matrix, false);
         if (newBM.equals(origin)) {
             return newBM;
