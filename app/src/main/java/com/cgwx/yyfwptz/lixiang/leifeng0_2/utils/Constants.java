@@ -10,6 +10,6 @@ public final class Constants {
     public static final String detectFragmentNormal = "2";
     public static final String detectFragmentNormalURL = "file:///android_asset/www/detect_fragment.html";
 ///    public static final String detectFragmentNormalURL = "file:///android_asset/www/index.html";
-
+    public static final String homeFragmentWithMapUpPullURL = "file:///android_asset/www/index.html";
     public static final int PERMISSION_REQUEST_COARSE_LOCATION = 1;
 }

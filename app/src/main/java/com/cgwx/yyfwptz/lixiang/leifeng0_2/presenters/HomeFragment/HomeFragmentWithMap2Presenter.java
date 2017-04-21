@@ -26,8 +26,10 @@ import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.R;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.entities.Icon;
+import com.cgwx.yyfwptz.lixiang.leifeng0_2.models.modelImpl.HomeFragmentNormalModelImpl;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.models.modelImpl.HomeFragmentWithMapModelImpl;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.models.modelInterface.OnSendArrayListener;
+import com.cgwx.yyfwptz.lixiang.leifeng0_2.models.modelInterface.OnSendStringListener;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.presenters.BasePresenter;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.activity.MainActivity;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.DetectFragmentWithMap;
@@ -139,7 +141,7 @@ public class HomeFragmentWithMap2Presenter extends BasePresenter<HomeFragmentWit
                 .zoom(17)
                 .build();
         MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
-        DetectFragmentWithMap.baiduMap.setMapStatus(mMapStatusUpdate);
+        baiduMap.setMapStatus(mMapStatusUpdate);
         baiduMap.setOnMarkerDragListener(new BaiduMap.OnMarkerDragListener() {
             public void onMarkerDrag(Marker marker) {
             }
@@ -342,4 +344,15 @@ public class HomeFragmentWithMap2Presenter extends BasePresenter<HomeFragmentWit
         public void onChildScroll(int top) {
         }
     };
+
+    public void getURLRequest(String request) {
+        model.geturl(request, new OnSendStringListener() {
+            @Override
+            public void sendString(String string) {
+                getView().getURL(string);
+            }
+        });
+    }
+
+
 }

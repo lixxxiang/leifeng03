@@ -31,7 +31,6 @@
             android:theme="@android:style/Theme.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -42,18 +41,19 @@
         <activity android:name=".view.activity.getLocationDemo" />
         <activity android:name="com.example.zhaoshuang.weixinrecordeddemo.Record2Activity" />
         <activity android:name="com.example.zhaoshuang.weixinrecordeddemo.VideoPlayActivity" />
-        <activity android:name=".view.activity.tempChooseRecordActivity"
+        <activity
+            android:name=".view.activity.tempChooseRecordActivity"
             android:theme="@style/AppNoBarTheme" />
         <activity android:name=".view.activity.VideoPlayerActivity" />
-        <activity android:name="mabeijianxi.camera.MediaRecorderActivity"/>
-        <activity android:name=".view.activity.SendSmallVideoActivity"
+        <activity android:name="mabeijianxi.camera.MediaRecorderActivity" />
+        <activity
+            android:name=".view.activity.SendSmallVideoActivity"
             android:theme="@style/AppNoBarTheme" />
 
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote" >
-        </service>
+            android:process=":remote"></service>
 
     </application>
 

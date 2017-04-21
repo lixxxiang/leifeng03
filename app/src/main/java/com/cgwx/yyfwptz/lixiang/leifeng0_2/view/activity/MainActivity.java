@@ -7,6 +7,7 @@ import android.support.annotation.IdRes;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.presenters.mainActivitypresenter.MainActivityPresenter;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -24,8 +25,8 @@ public class MainActivity extends BaseActivity<MainActivityPresenter, MainActivi
 
     @BindView(R.id.rb_home)
     RadioButton radioButton;
-    @BindView(R.id.record)
-    ImageView record;
+
+    public static ImageView record;
     public static RadioGroup radioGroup;
     public static View view;
     @Override
@@ -35,6 +36,7 @@ public class MainActivity extends BaseActivity<MainActivityPresenter, MainActivi
         ButterKnife.bind(this);
         mainActivity = this;
         radioGroup = (RadioGroup) findViewById(R.id.rg_tab_bar);
+        record = (ImageView) findViewById(R.id.record);
         view = findViewById(R.id.div_tab_bar);
         radioGroup.setOnCheckedChangeListener(this);
         radioButton.setChecked(true);

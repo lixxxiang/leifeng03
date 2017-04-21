@@ -10,6 +10,8 @@ import com.baidu.location.LocationClientOption;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.entities.Icon;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.models.modelInterface.HomeFragmentWithMapModelInterface;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.models.modelInterface.OnSendArrayListener;
+import com.cgwx.yyfwptz.lixiang.leifeng0_2.models.modelInterface.OnSendStringListener;
+import com.cgwx.yyfwptz.lixiang.leifeng0_2.utils.Constants;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.activity.MainActivity;
 
 
@@ -87,6 +89,13 @@ public class HomeFragmentWithMapModelImpl implements HomeFragmentWithMapModelInt
                 if (mLocationClient.isStarted())
                     mLocationClient.stop();
             }
+        }
+    }
+
+    @Override
+    public void geturl(String request, OnSendStringListener listener) {
+        if(request.equals(Constants.homeFragmentWithMapUpPullURL)){
+            listener.sendString(Constants.homeFragmentWithMapUpPullURL);
         }
     }
 }

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -28,25 +29,26 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#000000"
-        app:allowHorizontalScroll="true"
+        android:fillViewport="true"
         app:exitOffset="0dp"
         app:isSupportExit="true"
         app:maxOffset="200dp"
         app:minOffset="50dp"
         app:mode="exit">
 
-        <com.yinglan.scrolllayout.content.ContentScrollView
+        <LinearLayout
             android:id="@+id/content_scroll_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/white">
 
-            <EditText
-                android:id="@+id/text_view"
+            <org.apache.cordova.engine.SystemWebView
+                android:id="@+id/cordovaWebView"
                 android:layout_width="match_parent"
-                android:background="@null"
-                android:layout_height="200dp" />
-
-        </com.yinglan.scrolllayout.content.ContentScrollView>
+                android:layout_height="match_parent"
+                />
+        </LinearLayout>
     </com.yinglan.scrolllayout.ScrollLayout>
+
+
 </RelativeLayout>
