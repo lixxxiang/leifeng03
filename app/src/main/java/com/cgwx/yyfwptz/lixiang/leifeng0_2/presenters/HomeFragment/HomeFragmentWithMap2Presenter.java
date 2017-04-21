@@ -8,6 +8,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.widget.Button;
+import android.widget.Toast;
+
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
@@ -24,6 +26,12 @@ import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.search.core.SearchResult;
+import com.baidu.mapapi.search.geocode.GeoCodeResult;
+import com.baidu.mapapi.search.geocode.GeoCoder;
+import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
+import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
+import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.R;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.entities.Icon;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.models.modelImpl.HomeFragmentNormalModelImpl;
@@ -36,6 +44,8 @@ import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.DetectFragmentWithMap;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.HomeFragmentWithMap2;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.MyOrientationListener;
 import com.yinglan.scrolllayout.ScrollLayout;
+import com.yixia.camera.util.Log;
+
 import static com.cgwx.yyfwptz.lixiang.leifeng0_2.presenters.mainActivitypresenter.MainActivityPresenter.homeFragmentNormal;
 import static com.cgwx.yyfwptz.lixiang.leifeng0_2.presenters.mainActivitypresenter.MainActivityPresenter.homeFragmentWithMap2;
 import static com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.HomeFragmentWithMap2.baiduMap;
@@ -53,7 +63,7 @@ import static com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.HomeFragmentWithMap
  * Created by yyfwptz on 2017/3/27.
  */
 
-public class HomeFragmentWithMap2Presenter extends BasePresenter<HomeFragmentWithMap2, HomeFragmentWithMapModelImpl> {
+public class HomeFragmentWithMap2Presenter extends BasePresenter<HomeFragmentWithMap2, HomeFragmentWithMapModelImpl> implements OnGetGeoCoderResultListener{
 
     private FragmentManager fragmentManager;
     private MapStatusUpdate mapStatusUpdate;
@@ -66,6 +76,7 @@ public class HomeFragmentWithMap2Presenter extends BasePresenter<HomeFragmentWit
     private LatLng currentPt;
     private float mCurrentX;
     public static BitmapDescriptor setLocationIcon;
+    private GeoCoder geoCoder;
 
 
     @Override
@@ -167,6 +178,29 @@ public class HomeFragmentWithMap2Presenter extends BasePresenter<HomeFragmentWit
             }
 
         });
+    }
+
+    @Override
+    public void onGetGeoCodeResult(GeoCodeResult geoCodeResult) {
+        if (geoCodeResult == null || geoCodeResult.error != SearchResult.ERRORNO.NO_ERROR) {
+            Toast.makeText(MainActivity.mainActivity, "抱歉，未能找到结果", Toast.LENGTH_LONG)
+                    .show();
+            return;
+        }
+        String strInfo = String.format("纬度：%f 经度：%f", geoCodeResult.getLocation().latitude, geoCodeResult.getLocation().longitude);
+        Toast.makeText(MainActivity.mainActivity, strInfo, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onGetReverseGeoCodeResult(ReverseGeoCodeResult reverseGeoCodeResult) {
+        if (reverseGeoCodeResult == null || reverseGeoCodeResult.error != SearchResult.ERRORNO.NO_ERROR) {
+            Toast.makeText(MainActivity.mainActivity, "抱歉，未能找到结果", Toast.LENGTH_LONG)
+                    .show();
+            return;
+        }
+        Toast.makeText(MainActivity.mainActivity, reverseGeoCodeResult.getAddress(),
+                Toast.LENGTH_LONG).show();
+
     }
 
     /**
@@ -286,7 +320,15 @@ public class HomeFragmentWithMap2Presenter extends BasePresenter<HomeFragmentWit
         Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.icon_focus_marka, options);
         setLocationIcon = BitmapDescriptorFactory.fromBitmap(icon_format(bitmap, 75, 120));
         currentPt = latLng;
+        showGeoInfo(currentPt);
         setPosition(currentPt.latitude, currentPt.longitude, setLocationIcon);
+    }
+
+    private void showGeoInfo(LatLng latLng){
+        geoCoder = GeoCoder.newInstance();
+        geoCoder.setOnGetGeoCodeResultListener(this);
+        geoCoder.reverseGeoCode(new ReverseGeoCodeOption().location(latLng));
+
     }
 
     /**
