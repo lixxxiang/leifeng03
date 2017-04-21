@@ -19,10 +19,10 @@ import com.cgwx.yyfwptz.lixiang.leifeng0_2.R;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.entities.Icon;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.presenters.DetectFragment.DetectFragmentWithMapPresenter;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.BaseViewInterface;
+import com.yinglan.scrolllayout.ScrollLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
 import static com.cgwx.yyfwptz.lixiang.leifeng0_2.utils.Utils.checkPermission;
 
 
@@ -37,23 +37,18 @@ public class DetectFragmentWithMap extends BaseFragment<DetectFragmentWithMapPre
     public static Context context;
     private View view;
 
+
     @BindView(R.id.changeView)
     Button changeView;
     private FragmentManager fragmentManager;
     private Icon[] icons;
     private MapStatusUpdate mapStatusUpdate;
-    private Resources res;
-    //qwfeqfqegwrgwr
-    //自定义图标
+    private Resources resources;
     public static BitmapDescriptor mIconLocation;
-    //testtt
-    //eteete
-    //dfsfdsdfsdf
     public static BitmapDescriptor bitmapDescriptor;
-
     public static MyOrientationListener myOrientationListener;
-    //定位图层显示方式
     public static MyLocationConfiguration.LocationMode locationMode;
+    public static ScrollLayout scrollLayout;
 
     public DetectFragmentWithMap() {
     }
@@ -64,27 +59,24 @@ public class DetectFragmentWithMap extends BaseFragment<DetectFragmentWithMapPre
 
         SDKInitializer.initialize(getActivity().getApplication());
         view = inflater.inflate(R.layout.detect_fragment_with_map, container, false);
+
+        checkPermission();
+
         ButterKnife.bind(this, view);
         context = getActivity();
-        mapView = (TextureMapView) view.findViewById(R.id.bmapView);
-//        requestLocButton = (Button) view.findViewById(R.id.button1);
-        /**
-         * to presenter
-         */
-        checkPermission();
-        /**
-         * 传参 定位点坐标
-         */
-//        fpresenter.setLocationMode();
-        res=getResources();
-        fpresenter.initLocation(res);
-        fpresenter.getIcons();
-        fpresenter.setIcon(icons);
-
-//        myOrientationListener.start();
+        resources =getResources();
         fragmentManager = getFragmentManager();
 
-        fpresenter.a(res);
+        mapView = (TextureMapView) view.findViewById(R.id.bmapView);
+        scrollLayout = (ScrollLayout) view.findViewById(R.id.scroll_down_layout);
+
+
+
+        fpresenter.initialScrollLayout(scrollLayout);
+        fpresenter.initLocation(resources);
+        fpresenter.getIcons();
+        fpresenter.setIcon(icons);
+        fpresenter.setLocation(resources);
         changeView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,9 +116,6 @@ public class DetectFragmentWithMap extends BaseFragment<DetectFragmentWithMapPre
         mapView.onDestroy();
         myOrientationListener.stop();
     }
-
-
-
 
 
     @Override

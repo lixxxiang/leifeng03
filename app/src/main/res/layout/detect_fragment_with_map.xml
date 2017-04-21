@@ -1,53 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-    <RelativeLayout
-        android:id="@+id/ly_top_bar"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@color/bg_topbar">
+    android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/txt_topbar"
+
+    <com.baidu.mapapi.map.TextureMapView
+        android:id="@+id/bmapView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true" />
+
+    <Button
+        android:id="@+id/changeView"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/ic_map_black_48dp" />
+
+
+    <com.yinglan.scrolllayout.ScrollLayout
+        android:id="@+id/scroll_down_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000000"
+        app:allowHorizontalScroll="true"
+        app:exitOffset="0dp"
+        app:isSupportExit="true"
+        app:maxOffset="200dp"
+        app:minOffset="50dp"
+        app:mode="exit">
+
+        <com.yinglan.scrolllayout.content.ContentScrollView
+            android:id="@+id/content_scroll_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:text="雷锋"
-            android:textColor="@color/bg_black"
-            android:textSize="18sp" />
+            android:background="@android:color/white">
 
+            <EditText
+                android:id="@+id/text_view"
+                android:layout_width="match_parent"
+                android:background="@null"
+                android:layout_height="200dp" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2px"
-            android:layout_alignParentBottom="true"
-            android:background="@color/div_white" />
-
-        <Button
-            android:id="@+id/changeView"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/ic_map_black_48dp"
-            />
-
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <com.baidu.mapapi.map.TextureMapView
-            android:id="@+id/bmapView"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:clickable="true" />
-
-
-    </RelativeLayout>
-
-</LinearLayout>
+        </com.yinglan.scrolllayout.content.ContentScrollView>
+    </com.yinglan.scrolllayout.ScrollLayout>
+</RelativeLayout>

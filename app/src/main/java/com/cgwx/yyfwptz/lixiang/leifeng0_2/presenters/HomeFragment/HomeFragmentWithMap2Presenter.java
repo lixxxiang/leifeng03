@@ -30,6 +30,7 @@ import com.cgwx.yyfwptz.lixiang.leifeng0_2.models.modelImpl.HomeFragmentWithMapM
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.models.modelInterface.OnSendArrayListener;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.presenters.BasePresenter;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.activity.MainActivity;
+import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.DetectFragmentWithMap;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.HomeFragmentWithMap2;
 import com.cgwx.yyfwptz.lixiang.leifeng0_2.view.frgms.MyOrientationListener;
 import com.yinglan.scrolllayout.ScrollLayout;
@@ -133,6 +134,12 @@ public class HomeFragmentWithMap2Presenter extends BasePresenter<HomeFragmentWit
                 .zIndex(9)
                 .draggable(true);
         markerA = (Marker) (baiduMap.addOverlay(markerOptions));
+        MapStatus mMapStatus = new MapStatus.Builder()
+                .target(latLng)
+                .zoom(17)
+                .build();
+        MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
+        DetectFragmentWithMap.baiduMap.setMapStatus(mMapStatusUpdate);
         baiduMap.setOnMarkerDragListener(new BaiduMap.OnMarkerDragListener() {
             public void onMarkerDrag(Marker marker) {
             }
